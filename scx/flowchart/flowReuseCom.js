@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-12 17:44:52
- * @LastEditTime: 2021-07-13 13:01:52
+ * @LastEditTime: 2021-07-13 15:38:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \SolidPollutionItem\scx\flowchart\flowReuseCom.js
@@ -23,6 +23,16 @@ window.moment = moment;
 let cookie = {};
 const now = moment();
 class CustomComp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      factoryName: "sss",
+      locationX: 0,
+      locationY: 0,
+    };
+    this.factoryRef = React.createRef();
+    
+  }
   componentDidMount = () => {
     cookie = getCookie();
     // console.log('cookie', cookie);
@@ -35,22 +45,49 @@ class CustomComp extends Component {
     // 定时刷新
     initFreshData(); // 初始化-监听
     // setInterval(intervalFreshData, 3000);
+    // 新增factoryElement元素
+    // document.querySelector(".htDivFlex").after(factoryElement);
+    let factoryEle = document.querySelector("#factory-element").parentNode.parentNode.parentNode;
+    this.factoryRef.current.style.height = '60px';
+    this.factoryRef.current.style.left = '0px';
+    this.factoryRef.current.style.position = 'float'
+    // this.factoryRef.current.clientWidth = '100px'
 
+    console.log(factoryEle,document.body.clientWidth,this.factoryRef.current.parentNode.parentNode.parentNode);
     // 流程图标题修改
     const oobj = parmseToObject(); // 获取pageid传参
-    let factoryName
+    let factoryName;
     if (!!(oobj && oobj.factoryName)) {
       console.log("factoryName", oobj.factoryName);
       factoryName = decodeURIComponent(oobj.factoryName);
-      
-    }else{
-      factoryName = ''
+    } else {
+      factoryName = "";
     }
     const setFactoryNamePromise = setFactoryName(factoryName);
+    setFactoryNamePromise.then(res=>{console.log(res)})
   };
 
   render() {
-    return <div>流程图复用控件demo</div>;
+    const { factoryName, locationX, locationY } = this.state;
+    return (
+      <div
+        id="factory-element"
+        ref={this.factoryRef}
+        style={{
+          position: "absolute",
+          left: locationX,
+          top: locationY,
+          zIndex: 111,
+          fontSize: '40px',
+          color: "white",
+          width: "800px",
+          height: "100px",
+          backgroundColor: "#0F203E"
+        }}
+      >
+        {factoryName}
+      </div>
+    );
   }
 }
 
@@ -738,18 +775,29 @@ async function setFactoryName(factoryName) {
     );
   }
   const getPropertyValueRes = await getPropertyValue(objName, propName);
-  if (getPropertyValueRes.code === "200") {
+  const facArr = document.querySelectorAll(
+    ".labelContent_2A4Q7,.labelContent_middle_CeyZZ"
+  );
+  if (getPropertyValueRes.code === "200" && facArr.length > 0) {
     console.log("getPropertyValueRes", getPropertyValueRes);
-    const facArr = document.querySelectorAll(
-      ".labelContent_2A4Q7,.labelContent_top_1ihD9"
-    );
+    // const facArr = document.querySelectorAll(
+    //   ".labelContent_2A4Q7,.labelContent_top_1ihD9"
+    // );
     facArr.forEach((item) => {
       item.innerText = getPropertyValueRes.result;
-      return '改变企业名称成功'
+      return "改变企业名称成功";
     });
   } else {
-    return '未改变企业名称'
+    return "未改变企业名称";
   }
 
   // return getPropertyValue;
+}
+// 添加企业div并覆盖到原先位置上
+function renderFactoryElement() {
+  const factoryElement = document.createElement("div");
+  const factoryElementStr = "<span>  </span><br>";
+
+  factoryElement.innerHTML = factoryElementStr;
+  document.querySelector(".htDivFlex").after(factoryElement);
 }
