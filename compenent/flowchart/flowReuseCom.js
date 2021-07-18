@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-07-12 17:44:52
- * @LastEditTime: 2021-07-13 15:38:12
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \SolidPollutionItem\scx\flowchart\flowReuseCom.js
- */
+
 
 /* eslint-disable no-use-before-define */
 /* eslint-disable object-shorthand */

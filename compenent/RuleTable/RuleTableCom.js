@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-07-18 14:22:59
- * @LastEditTime: 2021-07-18 14:23:33
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \SolidPollutionItem\scx\RuleTable\RuleTableCom.js
- */
+
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable react/sort-comp */
 /* eslint-disable no-shadow */

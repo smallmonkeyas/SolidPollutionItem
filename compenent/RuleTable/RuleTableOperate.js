@@ -1,11 +1,12 @@
 /*
  * @Author: your name
- * @Date: 2021-07-12 00:24:09
- * @LastEditTime: 2021-07-14 13:04:10
- * @LastEditors: Please set LastEditors
+ * @Date: 2021-07-13 23:35:12
+ * @LastEditTime: 2021-07-18 14:38:15
+ * @LastEditors: your name
  * @Description: In User Settings Edit
- * @FilePath: \SolidPollutionItem\scx\RuleTable\RuleTableOperate.js
+ * @FilePath: \SolidPollutionItem\compenent\RuleTable\RuleTableOperate.js
  */
+
 // TODO: 引入第三方库/资源文件
 import React, { Component } from 'react';
 import $ from '../jquery/dist/jquery';
