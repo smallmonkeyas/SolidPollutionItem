@@ -1,5 +1,3 @@
-
-
 /* eslint-disable no-use-before-define */
 /* eslint-disable object-shorthand */
 /* eslint-disable vars-on-top */
@@ -24,11 +22,10 @@ class CustomComp extends Component {
       locationY: 0,
     };
     this.factoryRef = React.createRef();
-    
   }
   componentDidMount = () => {
     cookie = getCookie();
-    // console.log('cookie', cookie);
+    // // console.log('cookie', cookie);
     // 趋势y轴自适应
     const listenObj = document.querySelector("div.wrap_36Hx4");
     setSelectContentChangeEvt(listenObj);
@@ -40,24 +37,26 @@ class CustomComp extends Component {
     // setInterval(intervalFreshData, 3000);
     // 新增factoryElement元素
     // document.querySelector(".htDivFlex").after(factoryElement);
-    let factoryEle = document.querySelector("#factory-element").parentNode.parentNode.parentNode;
+    /* let factoryEle = document.querySelector("#factory-element").parentNode.parentNode.parentNode;
     this.factoryRef.current.style.height = '60px';
     this.factoryRef.current.style.left = '0px';
     this.factoryRef.current.style.position = 'float'
     // this.factoryRef.current.clientWidth = '100px'
 
-    console.log(factoryEle,document.body.clientWidth,this.factoryRef.current.parentNode.parentNode.parentNode);
+    // console.log(factoryEle,document.body.clientWidth,this.factoryRef.current.parentNode.parentNode.parentNode); */
     // 流程图标题修改
     const oobj = parmseToObject(); // 获取pageid传参
     let factoryName;
     if (!!(oobj && oobj.factoryName)) {
-      console.log("factoryName", oobj.factoryName);
+      // console.log("factoryName", oobj.factoryName);
       factoryName = decodeURIComponent(oobj.factoryName);
     } else {
       factoryName = "";
     }
     const setFactoryNamePromise = setFactoryName(factoryName);
-    setFactoryNamePromise.then(res=>{console.log(res)})
+    setFactoryNamePromise.then((res) => {
+      console.log(res);
+    });
   };
 
   render() {
@@ -71,11 +70,11 @@ class CustomComp extends Component {
           left: locationX,
           top: locationY,
           zIndex: 111,
-          fontSize: '40px',
+          fontSize: "40px",
           color: "white",
           width: "800px",
           height: "100px",
-          backgroundColor: "#0F203E"
+          backgroundColor: "#0F203E",
         }}
       >
         {factoryName}
@@ -159,7 +158,7 @@ const toggleFullscreen = function () {
       element.webkitRequestFullScreen || //Chrome等
       element.mozRequestFullScreen || //FireFox
       element.msRequestFullScreen; //IE11;
-    //   console.log('fullElem',fullElem)
+    //   // console.log('fullElem',fullElem)
     fullElem.call(element);
 
     // document.documentElement.requestFullscreen();
@@ -170,7 +169,7 @@ const toggleFullscreen = function () {
       document.mozCancelFullScreen || //Chrome等
       document.webkitExitFullscreen || //FireFox
       document.webkitExitFullscreen; //IE11
-    //   console.log('exitfullElem',exitfullElem)
+    //   // console.log('exitfullElem',exitfullElem)
     // if (document.exitFullscreen) {
     // document.exitFullscreen();
     exitfullElem.call(document);
@@ -179,7 +178,7 @@ const toggleFullscreen = function () {
 };
 
 const addTooltipText = function (item) {
-  // console.log(item);
+  // // console.log(item);
   const sapnTooltipText = document.createElement("span");
   if (!document.fullscreenElement) {
     sapnTooltipText.innerText = "进入全屏";
@@ -192,7 +191,7 @@ const addTooltipText = function (item) {
 };
 const toggleToolTipText = function (item) {
   const sapnTooltipText = document.querySelector("span.tooltiptext");
-  // console.log('hoverText', sapnTooltipText);
+  // // console.log('hoverText', sapnTooltipText);
   const isFull = !!(
     document.webkitIsFullScreen ||
     document.mozFullScreen ||
@@ -208,7 +207,7 @@ const toggleToolTipText = function (item) {
   }
 };
 const addEventListenerToBtn = function () {
-  // console.log('页面加载完成');
+  // // console.log('页面加载完成');
   const btnObj = document.querySelector("button.ant-btn.printHidden") || {};
   if (btnObj !== {}) {
     addTooltipText(btnObj);
@@ -254,7 +253,7 @@ function getPropertyLastVQTValue(objName, propName) {
       (res) => {
         resolve(res);
         // result = res;
-        // // console.log('res',res)
+        // // // console.log('res',res)
         // result = res
       }
     );
@@ -280,13 +279,13 @@ const intervalFreshData = async function () {
     if (propName && objName) break;
   }
 
-  // // console.log('objName',objName);
-  // // console.log('propName',propName);
-  // // console.log('propName===',propName==='')
+  // // // console.log('objName',objName);
+  // // // console.log('propName',propName);
+  // // // console.log('propName===',propName==='')
 
   const freshData = await renderFreshData(dataProperityPArr);
   //   renderFreshDataPromise.then(renderFreshData => {
-  //   console.log('renderFreshData',renderFreshData)
+  //   // console.log('renderFreshData',renderFreshData)
   // 更新最后一次数据更新时间
   dataProperityPArr[6].innerHTML = `<span>最后更新时间：</span><br>${freshData.lastTimeStr}`;
   // //   更新当前时间
@@ -309,7 +308,7 @@ async function renderFreshData(dataTooltipPArr) {
   );
   const res = propertyLastHisDataRes;
   let originVQTTime = 0;
-  //   console.log('res', res);
+  //   // console.log('res', res);
   const isActive = res.code === "200" ? !!res.result.tags : false;
   if (!isActive)
     return {
@@ -324,7 +323,7 @@ async function renderFreshData(dataTooltipPArr) {
       ? res.result.tags.serverTime
       : 0;
 
-  // console.log('propertyLastHisDataPromiseRes', res);
+  // // console.log('propertyLastHisDataPromiseRes', res);
 
   // TODO: 获取数据刷新频率
   const startTime = moment(now).subtract(12, "days").utc().format();
@@ -337,12 +336,16 @@ async function renderFreshData(dataTooltipPArr) {
     endTime,
     limit
   );
-  // console.log(fzRange);
+  // // console.log(fzRange);
   let fzRangeStr = "";
-  fzRangeStr =
-    fzRange.maxFz === fzRange.minFz
-      ? ` ${fzRange.minFz} S`
-      : ` ${fzRange.minFz} ~ ${fzRange.maxFz} S`;
+  if (fzRange.minFz === -Infinity || fzRange.minFz === Infinity|| isNaN(fzRange.minFz)) {
+    fzRangeStr = "——";
+  } else {
+    fzRangeStr =
+      fzRange.maxFz === fzRange.minFz
+        ? ` ${fzRange.minFz} S`
+        : ` ${fzRange.minFz} ~ ${fzRange.maxFz} S`;
+  }
 
   // TODO: 最后一次数据刷新时间
   const lastTime = await getLastFreshTime(objName, propName, originVQTTime);
@@ -353,7 +356,7 @@ async function renderFreshData(dataTooltipPArr) {
   };
 }
 async function getLastFreshTime(objName, propName, originVQTTime) {
-  // console.log('getLastFreshTime', originVQTTime);
+  // // console.log('getLastFreshTime', originVQTTime);
   const nowTime = new Date().getTime();
   const VQTnowTimeDiff = nowTime - originVQTTime;
   let lastTime;
@@ -395,8 +398,8 @@ const initFreshData = function () {
   // 删除数据源无关属性
   const dataLinkObj = document.querySelector(".datalink-tooltip .properties");
   const dataProperityPArr = dataLinkObj.querySelectorAll("p");
-  // console.log('dataProperityArr', dataProperityPArr);
-  // console.log('datalink-tooltip', dataLinkObj);
+  // // console.log('dataProperityArr', dataProperityPArr);
+  // // console.log('datalink-tooltip', dataLinkObj);
 
   for (let ii = 0; ii < 3; ii++) {
     dataProperityPArr[ii].style.display = "none";
@@ -411,7 +414,7 @@ const initFreshData = function () {
   // var lastFreshTime=parser.parseFromString(lastFreshTimeStr, "text/html");
 
   dataProperityPArr[5].after(freshTimeElement);
-  // console.log('lastFreshTime', freshTimeElement);
+  // // console.log('lastFreshTime', freshTimeElement);
   const nowTimeElement = document.createElement("p");
   const nowTimeStr = "<span>当前时间：</span><br>";
 
@@ -445,18 +448,18 @@ function addDataLinkListen() {
   //   const dataLinkObj = document.querySelector('.datalink-tooltip .properties');
   //   const dataProperityPArr = dataLinkObj.querySelectorAll('p');
   const listenObjArr = document.querySelectorAll(".draw_g6CsK img");
-  // console.log('addDataLinkListen',dataProperityPArr,listenObjArr)
-  // document.querySelectorAll('.draw_g6CsK img').forEach(function(item){item.onclick=function(){// console.log('也是哦')}})
+  // // console.log('addDataLinkListen',dataProperityPArr,listenObjArr)
+  // document.querySelectorAll('.draw_g6CsK img').forEach(function(item){item.onclick=function(){// // console.log('也是哦')}})
   listenObjArr.forEach((item, index) => {
     listenObjArr[index].onmouseover = function () {
       timer1s = setIntervalfunc(freshNowTime, 1000);
       timer3s = setIntervalfunc(intervalFreshData, 5000);
-      // console.log('');
+      // // console.log('');
     };
     listenObjArr[index].onmouseout = function () {
       clearInterval(timer1s);
       clearInterval(timer3s);
-      // console.log();
+      // // console.log();
     };
   });
 }
@@ -469,7 +472,7 @@ function addDataLinkListen() {
 //     // 2.创建一个观察器实例并传入回调函数
 //     observer = new MutationObserver(callback);
 //     // 3.选择需要观察变动的节点
-//     // console.log(observer)
+//     // // console.log(observer)
 //     // 4.以上述配置开始观察目标节点
 //     observer.observe(listenObj, config);
 //   }
@@ -481,9 +484,9 @@ function addDataLinkListen() {
 //         var dataProperityPArr = dataLinkObj.querySelectorAll('p')
 //         var objName = dataProperityPArr[0].lastChild.textContent
 //         var propName = dataProperityPArr[2].lastChild.textContent
-//         // console.log('objName',objName);
-//         // console.log('propName',propName);
-//         // console.log('propName===',propName==='')
+//         // // console.log('objName',objName);
+//         // // console.log('propName',propName);
+//         // // console.log('propName===',propName==='')
 //         if(propName===''||objName==='')return
 //         const propertyLastHisDataPromise = getPropertyLastVQTValue(objName,propName)
 //     	//更新最后一次刷新时间
@@ -493,7 +496,7 @@ function addDataLinkListen() {
 //     	        if(res.result.time){
 //     	            dataProperityPArr[6].innerHTML='<span>最后更新时间：</span><br>'+utc2beijing(res.result.time)
 //     	        }
-//     	        // console.log('propertyLastHisDataPromiseRes',utc2beijing(res.result.time))
+//     	        // // console.log('propertyLastHisDataPromiseRes',utc2beijing(res.result.time))
 //     	    }
 
 //     	})
@@ -535,38 +538,46 @@ async function getSinglePropFz(objName, propName, startTime, endTime, limit) {
   // const requestOptions = getRequestOptions(cookie);
   const historyData = await fetchGetHistory(dataInfo);
   const arrTimeDiff = await getTimeDiff(historyData);
+
   const fzMinMax = {
     minFz: Math.min(...arrTimeDiff) / 1000,
     maxFz: Math.max(...arrTimeDiff) / 1000,
     hisData: historyData.list,
   };
+  console.log("fzMinMax", fzMinMax);
   return fzMinMax;
 }
 async function getTimeDiff(historyData) {
-  // console.log('historyData', historyData);
+  // // console.log('historyData', historyData);
   const hisDataObj = historyData.list;
   const arrTime = [];
   hisDataObj.forEach((item) => {
     const timestamp = new Date(item.time).getTime();
     arrTime.push(timestamp);
   });
-  // console.log(arrTime);
+  // // console.log(arrTime);
   const arrTimePop = [...arrTime];
   const arrTimeDiff = [];
   arrTimePop.pop();
 
   arrTimePop.forEach((item, index) => {
-    // console.log(index, item);
+    // // console.log(index, item);
     arrTimeDiff.push(arrTime[index + 1] - item);
   });
+  let diffTime = [];
+  arrTimeDiff.forEach((item) => {
+    if (item > 1000 * 60 * 30) return;
+    diffTime.push(diffTime);
+  });
+  console.log(diffTime, arrTimeDiff);
   // // 开头添加0后删除最后一位
   // arrTime.unshift(0)
   // arrTime.pop();
   // const arrTimeShiftRight = arrTime;
-  // // console.log('arrTimeShiftRight',arrTimeShiftRight)
+  // // // console.log('arrTimeShiftRight',arrTimeShiftRight)
   // const arrTimeDiff =
-  // console.log(arrTimeDiff);
-  return arrTimeDiff;
+  // // console.log(arrTimeDiff);
+  return diffTime;
 }
 // Array.prototype.max = function(){
 //     return Math.max.apply({},this)
@@ -586,7 +597,7 @@ var getCookie = function (name) {
   // 截取变成cookie数组
   var array = strCookies.replace(/ /g, "").split(";");
   // var array = strCookies.split('; ');
-  // console.log(array);
+  // // console.log(array);
   // 循环每个cookie
   const cookieObj = {};
   array.forEach((item) => {
@@ -596,7 +607,7 @@ var getCookie = function (name) {
   // for (var i = 0; i < array.length; i++) {
   //     // 将cookie截取成两部分
   //     var item = array[i].split("=");
-  //     // // console.log(item)
+  //     // // // console.log(item)
   //     // 判断cookie的name 是否相等
   //     if (item[0] === name) {
   //         return item[1];
@@ -655,12 +666,12 @@ async function fetchGetHistory(dataInfo) {
 
 // fetch("http://10.32.203.157:8080/api/compose/manage/objectdata/batchQuery", requestOptions)
 //   .then(response => response.text())
-//   .then(result => // console.log(JSON.parse(result)))
-//   .catch(error => // console.log('error', error));
+//   .then(result => // // console.log(JSON.parse(result)))
+//   .catch(error => // // console.log('error', error));
 
 // setTimeout(()=>{
 //     var listenObj = document.querySelector('div.wrap_36Hx4')
-//     // console.log('listenObj',listenObj)
+//     // // console.log('listenObj',listenObj)
 //     setSelectContentChangeEvt(listenObj);
 // },1000)
 // TODO: 趋势y轴自适应
@@ -674,7 +685,7 @@ function setSelectContentChangeEvt(listenObj) {
   // 2.创建一个观察器实例并传入回调函数
   observer = new MutationObserver(callback);
   // 3.选择需要观察变动的节点
-  console.log(observer);
+  // console.log(observer);
   // 4.以上述配置开始观察目标节点
   observer.observe(listenObj, config);
 }
@@ -728,7 +739,7 @@ function setPropertyValue(objName, propName, propValue) {
       (res) => {
         resolve(res);
         // result = res;
-        // // console.log('res',res)
+        // // // console.log('res',res)
         // result = res
       }
     );
@@ -749,7 +760,7 @@ function getPropertyValue(objName, propName) {
       (res) => {
         resolve(res);
         // result = res;
-        // // console.log('res',res)
+        // // // console.log('res',res)
         // result = res
       }
     );
@@ -772,14 +783,14 @@ async function setFactoryName(factoryName) {
     ".labelContent_2A4Q7,.labelContent_middle_CeyZZ"
   );
   if (getPropertyValueRes.code === "200" && facArr.length > 0) {
-    console.log("getPropertyValueRes", getPropertyValueRes);
+    // console.log("getPropertyValueRes", getPropertyValueRes);
     // const facArr = document.querySelectorAll(
     //   ".labelContent_2A4Q7,.labelContent_top_1ihD9"
     // );
     facArr.forEach((item) => {
       item.innerText = getPropertyValueRes.result;
-      return "改变企业名称成功";
     });
+    return "改变企业名称成功";
   } else {
     return "未改变企业名称";
   }
