@@ -338,7 +338,11 @@ async function renderFreshData(dataTooltipPArr) {
   );
   // // console.log(fzRange);
   let fzRangeStr = "";
-  if (fzRange.minFz === -Infinity || fzRange.minFz === Infinity|| isNaN(fzRange.minFz)) {
+  if (
+    fzRange.minFz === -Infinity ||
+    fzRange.minFz === Infinity ||
+    isNaN(fzRange.minFz)
+  ) {
     fzRangeStr = "——";
   } else {
     fzRangeStr =
@@ -778,6 +782,13 @@ async function setFactoryName(factoryName) {
       propValue
     );
   }
+  const currUrlHash = getUrl();
+  if (
+    currUrlHash !==
+      "#/runtime-fullscreen/runtime-fullscreen/Page_9ceb85c969524354935f4c93017dc7e1" ||
+    factoryName === ""
+  )
+    return "不需改变企业名称";
   const getPropertyValueRes = await getPropertyValue(objName, propName);
   const facArr = document.querySelectorAll(
     ".labelContent_2A4Q7,.labelContent_middle_CeyZZ"
@@ -804,4 +815,23 @@ function renderFactoryElement() {
 
   factoryElement.innerHTML = factoryElementStr;
   document.querySelector(".htDivFlex").after(factoryElement);
+}
+//获取页面url（hash）,若有父页面，获取父页面hash
+function getUrl() {
+  var url = "";
+  try {
+    url = window.top.document.location.hash;
+  } catch (M) {
+    if (window.parent) {
+      try {
+        url = window.parent.document.location.hash;
+      } catch (L) {
+        url = "";
+      }
+    }
+  }
+  if (url === "") {
+    url = document.location.hash;
+  }
+  return url;
 }
