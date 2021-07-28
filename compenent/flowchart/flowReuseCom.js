@@ -782,11 +782,13 @@ async function setFactoryName(factoryName) {
       propValue
     );
   }
-  const currUrlHash = getUrl();
+  const currUrlHref = getUrl();
+  // console.log("getUrl1()", getUrl1());
   if (
-    currUrlHash !==
-      "#/runtime-fullscreen/runtime-fullscreen/Page_9ceb85c969524354935f4c93017dc7e1" ||
-    factoryName === ""
+    !(
+      currUrlHref ===
+      "http://123.60.12.183:8080/#/runtime-fullscreen/runtime-fullscreen/Page_3a71670ecde8486b90b26fddb93ce6eb"
+    )
   )
     return "不需改变企业名称";
   const getPropertyValueRes = await getPropertyValue(objName, propName);
@@ -820,18 +822,36 @@ function renderFactoryElement() {
 function getUrl() {
   var url = "";
   try {
-    url = window.top.document.location.hash;
+    url = window.top.document.location.href;
   } catch (M) {
     if (window.parent) {
       try {
-        url = window.parent.document.location.hash;
+        url = window.parent.document.location.href;
       } catch (L) {
         url = "";
       }
     }
   }
   if (url === "") {
-    url = document.location.hash;
+    url = document.location.href;
+  }
+  return url;
+}
+function getUrl1() {
+  var url = "";
+  try {
+    url = window.top.document.location;
+  } catch (M) {
+    if (window.parent) {
+      try {
+        url = window.parent.document.location;
+      } catch (L) {
+        url = "";
+      }
+    }
+  }
+  if (url === "") {
+    url = document.location;
   }
   return url;
 }
