@@ -141,7 +141,7 @@ const cssInnerHTML = `
     }
     `;
 // document.getElementsByTagName("head")[0].appendChild(css);
-
+//! 全屏按钮操作
 const toggleFullscreen = function () {
   const element = document.documentElement;
   const isFull = !!(
@@ -225,49 +225,8 @@ const removeBtnObj = function () {
 /**
  * * 数据刷新模块
  */
-// 时间转换utc->YYYY-MM-DD HH:mm:ss
-// var utc_datetime = "2017-03-31T08:02:06Z";
-function utc2beijing(dateForm) {
-  if (dateForm === "") {
-    // 解决deteForm为空传1970-01-01 00:00:00
-    return "";
-  }
-  const dateee = new Date(dateForm).toJSON();
-  const date = new Date(+new Date(dateee) + 8 * 3600 * 1000)
-    .toISOString()
-    .replace(/T/g, " ")
-    .replace(/\.[\d]{3}Z/, "");
-  return date;
-}
-// 获取最新数据及刷新时间
-function getPropertyLastVQTValue(objName, propName) {
-  return new Promise((resolve) => {
-    scriptUtil.excuteScriptService(
-      {
-        objName, // 对象实例名
-        // serviceName: 'getAlarmInterfaceInfo', // 服务名
-        serviceName: "getPropertyVQTValue", // 服务名
-        // fields: 列名数组,多列用','号分割.若filelds不传值或为空值则查询全部列.
-        params: { propName },
-      },
-      (res) => {
-        resolve(res);
-        // result = res;
-        // // // console.log('res',res)
-        // result = res
-      }
-    );
-  });
-}
-// 延时200ms
-function delayXms(x, X) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(x);
-    }, X);
-  });
-}
-// 定时刷新数据
+
+//! 定时刷新数据
 const intervalFreshData = async function () {
   let dataProperityPArr;
   while (true) {
@@ -397,7 +356,7 @@ async function getLastFreshTime(objName, propName, originVQTTime) {
   return lastFreshTime;
 }
 
-// 数据刷新初始化
+//! 数据刷新初始化
 const initFreshData = function () {
   // 删除数据源无关属性
   const dataLinkObj = document.querySelector(".datalink-tooltip .properties");
@@ -593,32 +552,7 @@ async function getTimeDiff(historyData) {
  * @系统信息api
  */
 
-// TODO: 获取Authorization
-// TODO: 获取cookie
-var getCookie = function (name) {
-  // 获取当前所有cookie
-  var strCookies = document.cookie;
-  // 截取变成cookie数组
-  var array = strCookies.replace(/ /g, "").split(";");
-  // var array = strCookies.split('; ');
-  // // console.log(array);
-  // 循环每个cookie
-  const cookieObj = {};
-  array.forEach((item) => {
-    const o = item.split("=");
-    cookieObj[o[0]] = o[1];
-  });
-  // for (var i = 0; i < array.length; i++) {
-  //     // 将cookie截取成两部分
-  //     var item = array[i].split("=");
-  //     // // // console.log(item)
-  //     // 判断cookie的name 是否相等
-  //     if (item[0] === name) {
-  //         return item[1];
-  //     }
-  // }
-  return cookieObj;
-};
+
 
 async function getRequestOptions(dataInfo) {
   const { objName, propName, startTime, endTime, limit } = dataInfo;
@@ -678,6 +612,7 @@ async function fetchGetHistory(dataInfo) {
 //     // // console.log('listenObj',listenObj)
 //     setSelectContentChangeEvt(listenObj);
 // },1000)
+
 // TODO: 趋势y轴自适应
 // 事件监听
 var config;
@@ -714,63 +649,9 @@ function callback(mutationsList, observer) {
   }, 500);
 }
 
-/*
- *流程图传参获取
- */
-const parmseToObject = function () {
-  let parmse = window.location.search;
-  if (!parmse) return {};
-  parmse = parmse.replace(/\?/, "").split("&");
-  const obj = {};
-  parmse.forEach((item) => {
-    const o = item.split("=");
-    obj[o[0]] = o[1];
-  });
-  return obj;
-};
 
-//往factoryTemplemte实例下的factoryName属性写值
 
-function setPropertyValue(objName, propName, propValue) {
-  return new Promise((resolve) => {
-    scriptUtil.excuteScriptService(
-      {
-        objName: objName, // 对象实例名
-        serviceName: "setPropertyValue", // 服务名
-        // fields: 列名数组,多列用','号分割.若filelds不传值或为空值则查询全部列.
-        params: { propName: propName, propValue: propValue },
-      },
-      (res) => {
-        resolve(res);
-        // result = res;
-        // // // console.log('res',res)
-        // result = res
-      }
-    );
-  });
-}
-
-//往factoryTemplemte实例下的factoryName属性读值
-
-function getPropertyValue(objName, propName) {
-  return new Promise((resolve) => {
-    scriptUtil.excuteScriptService(
-      {
-        objName: objName, // 对象实例名
-        serviceName: "getPropertyValue", // 服务名
-        // fields: 列名数组,多列用','号分割.若filelds不传值或为空值则查询全部列.
-        params: { propName: propName },
-      },
-      (res) => {
-        resolve(res);
-        // result = res;
-        // // // console.log('res',res)
-        // result = res
-      }
-    );
-  });
-}
-
+//!设置企业名称关键函数
 async function setFactoryName(factoryName) {
   const objName = "factoryTemplemte";
   const propName = "factoryName";
@@ -810,7 +691,7 @@ async function setFactoryName(factoryName) {
 
   // return getPropertyValue;
 }
-// 添加企业div并覆盖到原先位置上
+//! 添加企业div并覆盖到原先位置上
 function renderFactoryElement() {
   const factoryElement = document.createElement("div");
   const factoryElementStr = "<span>  </span><br>";
@@ -818,7 +699,8 @@ function renderFactoryElement() {
   factoryElement.innerHTML = factoryElementStr;
   document.querySelector(".htDivFlex").after(factoryElement);
 }
-//获取页面url（hash）,若有父页面，获取父页面hash
+
+//*获取页面url（hash）,若有父页面，获取父页面hash
 function getUrl() {
   var url = "";
   try {
@@ -837,6 +719,8 @@ function getUrl() {
   }
   return url;
 }
+
+//* 通用函数
 function getUrl1() {
   var url = "";
   try {
@@ -854,4 +738,131 @@ function getUrl1() {
     url = document.location;
   }
   return url;
+}
+
+/*
+ *流程图传参获取
+ */
+ const parmseToObject = function () {
+  let parmse = window.location.search;
+  if (!parmse) return {};
+  parmse = parmse.replace(/\?/, "").split("&");
+  const obj = {};
+  parmse.forEach((item) => {
+    const o = item.split("=");
+    obj[o[0]] = o[1];
+  });
+  return obj;
+};
+
+//*往factoryTemplemte实例下的factoryName属性写值
+
+function setPropertyValue(objName, propName, propValue) {
+  return new Promise((resolve) => {
+    scriptUtil.excuteScriptService(
+      {
+        objName: objName, // 对象实例名
+        serviceName: "setPropertyValue", // 服务名
+        // fields: 列名数组,多列用','号分割.若filelds不传值或为空值则查询全部列.
+        params: { propName: propName, propValue: propValue },
+      },
+      (res) => {
+        resolve(res);
+        // result = res;
+        // // // console.log('res',res)
+        // result = res
+      }
+    );
+  });
+}
+
+//*往factoryTemplemte实例下的factoryName属性读值
+
+function getPropertyValue(objName, propName) {
+  return new Promise((resolve) => {
+    scriptUtil.excuteScriptService(
+      {
+        objName: objName, // 对象实例名
+        serviceName: "getPropertyValue", // 服务名
+        // fields: 列名数组,多列用','号分割.若filelds不传值或为空值则查询全部列.
+        params: { propName: propName },
+      },
+      (res) => {
+        resolve(res);
+        // result = res;
+        // // // console.log('res',res)
+        // result = res
+      }
+    );
+  });
+}
+
+// TODO: 获取Authorization
+// TODO: 获取cookie
+var getCookie = function (name) {
+  // 获取当前所有cookie
+  var strCookies = document.cookie;
+  // 截取变成cookie数组
+  var array = strCookies.replace(/ /g, "").split(";");
+  // var array = strCookies.split('; ');
+  // // console.log(array);
+  // 循环每个cookie
+  const cookieObj = {};
+  array.forEach((item) => {
+    const o = item.split("=");
+    cookieObj[o[0]] = o[1];
+  });
+  // for (var i = 0; i < array.length; i++) {
+  //     // 将cookie截取成两部分
+  //     var item = array[i].split("=");
+  //     // // // console.log(item)
+  //     // 判断cookie的name 是否相等
+  //     if (item[0] === name) {
+  //         return item[1];
+  //     }
+  // }
+  return cookieObj;
+};
+
+// 时间转换utc->YYYY-MM-DD HH:mm:ss
+// var utc_datetime = "2017-03-31T08:02:06Z";
+function utc2beijing(dateForm) {
+  if (dateForm === "") {
+    // 解决deteForm为空传1970-01-01 00:00:00
+    return "";
+  }
+  const dateee = new Date(dateForm).toJSON();
+  const date = new Date(+new Date(dateee) + 8 * 3600 * 1000)
+    .toISOString()
+    .replace(/T/g, " ")
+    .replace(/\.[\d]{3}Z/, "");
+  return date;
+}
+// 获取最新数据及刷新时间
+function getPropertyLastVQTValue(objName, propName) {
+  return new Promise((resolve) => {
+    scriptUtil.excuteScriptService(
+      {
+        objName, // 对象实例名
+        // serviceName: 'getAlarmInterfaceInfo', // 服务名
+        serviceName: "getPropertyVQTValue", // 服务名
+        // fields: 列名数组,多列用','号分割.若filelds不传值或为空值则查询全部列.
+        params: { propName },
+      },
+      (res) => {
+        resolve(res);
+        // result = res;
+        // // // console.log('res',res)
+        // result = res
+      }
+    );
+  });
+}
+// 延时200ms
+function delayXms(x, X) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(x);
+    }, X);
+  });
 }
