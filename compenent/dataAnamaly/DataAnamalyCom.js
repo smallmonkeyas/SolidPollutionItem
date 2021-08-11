@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-18 14:41:21
- * @LastEditTime: 2021-07-18 14:41:40
+ * @LastEditTime: 2021-08-11 14:18:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \SolidPollutionItem\compenent\dataAnamaly\DataAnamalyCom.js
@@ -81,13 +81,14 @@ const alarmTypeArr = [
   '数据超范围',
   '去除率异常',
 ];
+
 const anamalyCatagorySelectArr = [
-  '满屏跳',
+  // '满屏跳',
   '恒值异常',
-  //   '数据缺失',
-  '设限值',
+  '数据缺失',
+  // '设限值',
   //   '相关性异常',
-  '陡升陡降',
+  // '陡升陡降',
 ];
 staticSelectArr.forEach(item => {
   staticChildren.push(<Option key={item}>{item}</Option>);
@@ -526,7 +527,8 @@ async function fetchAlarmListByInterface(epcode, starttime, endtime) {
     epcode = '320802000005';
   }
   const response = await fetch(
-    `http://${window.location.hostname}:8999/serverapi/event/total/alarmhis?epcode=${epcode}&alarmtype=1,2,4,5,8&begintime=${starttime}&endtime=${endtime}`,
+    // `http://${window.location.hostname}:8999/serverapi/event/total/alarmhis?epcode=${epcode}&alarmtype=1,2,4,5,8&begintime=${starttime}&endtime=${endtime}`,
+    `http://${window.location.hostname}:8999/serverapi/event/total/alarmhis?epcode=${epcode}&alarmtype=1,4&begintime=${starttime}&endtime=${endtime}`,
     requestOptions
   );
   const result = await response.text();
@@ -1144,7 +1146,8 @@ class AnamalyDetectChartTab extends Component {
       this.epcode = '320802000005';
     }
     fetch(
-      `http://${window.location.hostname}:8999/serverapi/event/total/alarmhis?epcode=${this.epcode}&alarmtype=1,2,4,5,8&begintime=${this.starttime}&endtime=${this.endtime}`,
+      // `http://${window.location.hostname}:8999/serverapi/event/total/alarmhis?epcode=${this.epcode}&alarmtype=1,2,4,5,8&begintime=${this.starttime}&endtime=${this.endtime}`,
+      `http://${window.location.hostname}:8999/serverapi/event/total/alarmhis?epcode=${this.epcode}&alarmtype=1,4&begintime=${this.starttime}&endtime=${this.endtime}`,
       requestOptions
     )
       .then(response => response.text())
